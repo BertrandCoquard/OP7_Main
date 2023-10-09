@@ -14,7 +14,7 @@ def test_home(app, client):
     res = client.get('/')
     assert res.status_code == 200
     data = res.data.decode()
-    expected = "API Flask OC projet 7"
+    expected = "API Flask BC projet 7"
     assert data == expected
 
 def test_cust_id(app, client):
