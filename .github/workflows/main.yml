@@ -23,10 +23,11 @@ jobs:
           heroku_app_name: "frozen-cove-50105"
           heroku_email: "ber.coquard@gmail.com"
           appdir: "Flask"
-          
+
       - name: Install Dependencies
-        run: python -m pip install --upgrade pip
-             pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
         working-directory: ./Flask
 
       - name: Run Tests
@@ -48,6 +49,11 @@ jobs:
           heroku_app_name: "stark-bastion-85001"
           heroku_email: "ber.coquard@gmail.com"
           appdir: "Dashboard"
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        working-directory: ./Dashboard
 
       - name: Install Dependencies
         run: python -m pip install --upgrade pip
