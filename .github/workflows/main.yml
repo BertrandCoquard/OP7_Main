@@ -1,0 +1,55 @@
+name: CI/CD
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy-flask:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - uses: akhileshns/heroku-deploy@v3.12.14
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "frozen-cove-50105"
+          heroku_email: "ber.coquard@gmail.com"
+          appdir: "Flask"
+          
+      - name: Install Dependencies
+        run: python -m pip install --upgrade pip
+             pip install -r requirements.txt
+        working-directory: ./Flask
+
+      - name: Run Tests
+        run: python -m pytest
+        working-directory: ./Flask
+        
+  deploy-dashboard:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - uses: akhileshns/heroku-deploy@v3.12.14
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "stark-bastion-85001"
+          heroku_email: "ber.coquard@gmail.com"
+          appdir: "Dashboard"
+
+      - name: Install Dependencies
+        run: python -m pip install --upgrade pip
+             pip install -r requirements.txt
+        working-directory: ./Dashboard
